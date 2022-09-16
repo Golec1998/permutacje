@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kalkulator permutacji</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script>
+        MathJax = {
+            tex: {inlineMath: [['$$', '$$'], ['\\(', '\\)']]}
+        };
+  </script>
+    <script id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+    <div class="inputs">
+        <nav id="nav">
+            <button id="iloButton" class="active" onclick="operationSet('ilo');">Iloczyn</button>
+            <button id="potButton" onclick="operationSet('pot');">Potęga</button>
+            <button id="odwButton" onclick="operationSet('odw');">Odwrotność</button>
+        </nav>
+        <div id="inputType">
+            <button id="cykButton" class="active" onclick="cyk(1);">Postać cykliczna</button>
+            <button id="tabButton" onclick="cyk(2);">Postać tabelaryczna</button>
+        </div>
+        
+        <input id="first" type="text" placeholder="Permutacja 1">
+        <div id="firstDisp" class="dispDiv activeDisp" style="height: 40px; border: 1px solid black;" onclick="selectedField = first; changeActive('firstDisp');"></div>
+        <input id="second" type="text" placeholder="Permutacja 2">
+        <div id="secondDisp" class="dispDiv" style="height: 40px; border: 1px solid black;" onclick="selectedField = second; changeActive('secondDisp');"></div>
+        <input id="power" type="text" placeholder="Potęga" onchange="correctPower()">
+        <div id="powerDisp" class="dispDiv" style="height: 20px; border: 1px solid black;" onclick="selectedField = power; changeActive('powerDisp');"></div>
+        
+        <button class="active" onclick="performOperation(); updateStorage(); document.getElementById('results').style.opacity = 1;">Wykonaj</button>
+        
+    </div>
+    <div id="results">
+        <div id="result"></div>
+    </div>
+    
+    <footer>
+        <button id="texBut" onclick="download('permutacje.tex');" disabled>Pobierz TEX</button>
+        <button id="historyBut" class="active" onclick="history(true);">Historia</button>
+        <button id="helpBut" class="active" onclick="help(true);">Pomoc</button>
+    </footer>
+    
+    <div id="keyboards">
+        <div id="firstKeyboard" style="display: grid;">
+            <button class="numericButton" id="first1Button" onclick="insertIntoSelected('1')">1</button>
+            <button class="numericButton" id="first2Button" onclick="insertIntoSelected('2')">2</button>
+            <button class="numericButton" id="first3Button" onclick="insertIntoSelected('3')">3</button>
+            <button class="numericButton" id="first4Button" onclick="insertIntoSelected('4')">4</button>
+            <button class="numericButton" id="first5Button" onclick="insertIntoSelected('5')">5</button>
+            <button class="numericButton" id="first6Button" onclick="insertIntoSelected('6')">6</button>
+            <button class="numericButton" id="first7Button" onclick="insertIntoSelected('7')">7</button>
+            <button class="numericButton" id="first8Button" onclick="insertIntoSelected('8')">8</button>
+            <button class="numericButton" id="first9Button" onclick="insertIntoSelected('9')">9</button>
+            <button class="bracketButton" id="firstLBButton" onclick="insertIntoSelected('(')">(</button>
+            <button class="bracketButton" id="firstRBButton" onclick="insertIntoSelected(')')">)</button>
+            <button class="backspaceButton" onclick="insertIntoSelected('Backspace')">&larr;</button>
+        </div>
+        <div id="secondKeyboard" style="display: none;">
+            <button class="numericButton" id="second1Button" onclick="insertIntoSelected('1')">1</button>
+            <button class="numericButton" id="second2Button" onclick="insertIntoSelected('2')">2</button>
+            <button class="numericButton" id="second3Button" onclick="insertIntoSelected('3')">3</button>
+            <button class="numericButton" id="second4Button" onclick="insertIntoSelected('4')">4</button>
+            <button class="numericButton" id="second5Button" onclick="insertIntoSelected('5')">5</button>
+            <button class="numericButton" id="second6Button" onclick="insertIntoSelected('6')">6</button>
+            <button class="numericButton" id="second7Button" onclick="insertIntoSelected('7')">7</button>
+            <button class="numericButton" id="second8Button" onclick="insertIntoSelected('8')">8</button>
+            <button class="numericButton" id="second9Button" onclick="insertIntoSelected('9')">9</button>
+            <button class="bracketButton" id="secondLBButton" onclick="insertIntoSelected('(')">(</button>
+            <button class="bracketButton" id="secondRBButton" onclick="insertIntoSelected(')')">)</button>
+            <button class="backspaceButton" onclick="insertIntoSelected('Backspace')">&larr;</button>
+        </div>
+        <div id="powerKeyboard" style="display: none;">
+            <button class="numericButton" id="power1Button" onclick="insertIntoSelected('1')">1</button>
+            <button class="numericButton" id="power2Button" onclick="insertIntoSelected('2')">2</button>
+            <button class="numericButton" id="power3Button" onclick="insertIntoSelected('3')">3</button>
+            <button class="numericButton" id="power4Button" onclick="insertIntoSelected('4')">4</button>
+            <button class="numericButton" id="power5Button" onclick="insertIntoSelected('5')">5</button>
+            <button class="numericButton" id="power6Button" onclick="insertIntoSelected('6')">6</button>
+            <button class="numericButton" id="power7Button" onclick="insertIntoSelected('7')">7</button>
+            <button class="numericButton" id="power8Button" onclick="insertIntoSelected('8')">8</button>
+            <button class="numericButton" id="power9Button" onclick="insertIntoSelected('9')">9</button>
+            <button class="bracketButton" id="powerLBButton" disabled>(</button>
+            <button class="bracketButton" id="powerRBButton" disabled>)</button>
+            <button class="backspaceButton" onclick="insertIntoSelected('Backspace')">&larr;</button>
+        </div>
+    </div>
+    
+    <div id="history"></div>
+    <div id="help">
+        <div>
+            <h2>Kalkulator permutacji autorstwa Pawła Cebula.</h2>
+            <p>Aby wykonać obliczenia w pierwszej kolejności należy wybrać działanie oraz postać permutacji wejściowych, a następnie należy wcisnąć przycisk <span style="color: aqua;">WYKONAJ</span>. Jeżeli wprowadzone wyrażenia będą zawierać błędy użytkownik zostanie o tym poinfomowany.</p>
+            <p>Dane można wprowadzać zarówno z klawiatury programowej jak i fizycznej, w pierwszej kolejności należy wybrać pole w które chcemy dane wyrażenie wprowadzić. Przyciski są automatycznie blokowane jeżeli nie można ich użyć. Podczas podawania wyrażenia w postaci tabelarycznej klawiatura programowa informuje nas również kolorem <span style="color: greenyellow;">ZIELONYM</span> o tym jakich cyfr jeszcze nam brakuje, aby wyrażenie było poprawne.</p>
+            <p>Finalne działanie oraz wynik pokazywane są w postaci tabelarycznej. Całość można pobrać przyciskiem <span style="color: aqua;">POBIERZ TEX</span>.</p>
+            <p>Dodatkowo lista wcześniej wykonywanych działań znajduje się w zakładce <span style="color: aqua;">HISTORIA</span>.</p>
+        </div>
+    </div>
+    <button id="close" onclick="history(); help();"><b>X</b></button>
+    
+    <script src="script.js"></script>
+    <script src="storage.js"></script>
+    <script>window.onload = function() { operationSet('ilo'); getItemsFromStorage(); }</script>
+</body>
+</html>

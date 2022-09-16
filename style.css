@@ -1,0 +1,282 @@
+html, body
+{
+    overflow: hidden;
+}
+
+html
+{
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+body
+{
+    width: 95vw;
+    margin: 0 2.5vw;
+}
+
+body > div
+{
+    padding: 5%;
+}
+
+.inputs > #nav
+{
+    box-sizing: border-box;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.inputs > #inputType
+{
+    box-sizing: border-box;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.inputs button
+{
+    display: block;
+    width: 95%;
+    margin: 1% 2.5%;
+    border-radius: 20px;
+    height: 40px;
+}
+
+.inputs input
+{
+    display: none;
+}
+
+.activeDisp
+{
+    background-color: #79cece;
+}
+
+.inputs .active,
+footer .active
+{
+    background-color: aqua;
+}
+
+#history
+{
+    display: block;
+    position: absolute;
+    margin: 0;
+    padding: 10vh 0;
+    height: 80%;
+    width: 0;
+    top: 0;
+    left: 0;
+    transition: width 0.5s;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+#help
+{
+    display: block;
+    position: absolute;
+    margin: 0;
+    padding: 10vh 0;
+    height: 100%;
+    width: 0;
+    top: 0;
+    right: 0;
+    transition: width 0.5s;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+}
+
+#help > div
+{
+    height: 80vh;
+    overflow-y: auto;
+}
+
+#help > div > *
+{
+    margin: 2vh 0;
+}
+
+#close
+{
+    width: 30px;
+    aspect-ratio: 1;
+    border-radius: 100vh;
+    position: absolute;
+    right: 2vh;
+    top: -20vh;
+    transition: top 0.5s;
+}
+
+#firstDisp,
+#secondDisp,
+#powerDisp
+{
+    padding: 10px;
+}
+
+#firstDisp > *,
+#secondDisp > *,
+#powerDisp > *
+{
+    margin: 0;
+}
+
+#keyboards
+{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    transition: width 0.5s;
+}
+
+#keyboards > div
+{
+    display: grid;
+    position: relative;
+    left: 0;
+    margin: 0;
+    padding: 0;
+}
+
+#keyboards > div > button
+{
+    padding: 0;
+    margin: 5px;
+    aspect-ratio: 1;
+    border-radius: 100vh;
+    font-size: 200%;
+}
+
+#keyboards .requiredNumber
+{
+    background-color: greenyellow;
+}
+
+footer
+{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+footer button
+{
+    height: 35px;
+}
+
+footer > #texBut
+{
+    grid-column: span 2;
+}
+
+#results
+{
+    opacity: 0;
+    transition: opacity 0.5s;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+@media screen and (max-width: 600px)
+{
+    body
+    {
+        display: block;
+    }
+    
+    #keyboards
+    {
+        display: block;
+        position: absolute;
+        width: 0;
+        right: 0;
+        bottom: 120px;
+    }
+    
+    #keyboards > div
+    {
+        grid-template-columns: repeat(4, 1fr);
+        width: 75vw;
+        margin: 0 12.5vw;
+    }
+    
+    #keyboards > div > button:nth-child(10)
+    {
+        grid-column: 4;
+        grid-row: 1;
+    }
+    
+    #keyboards > div > button:nth-child(11)
+    {
+        grid-column: 4;
+        grid-row: 2;
+    }
+    
+    #keyboards.keyboardShown
+    {
+        width: 100vw!important;
+    }
+    
+    #history > button,
+    #help > div
+    {
+        width: 90vw;
+        margin: 1vh 5vw;
+    }
+}
+
+@media screen and (min-width: 601px)
+{
+    body
+    {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    #keyboards
+    {
+        display: block;
+        position: absolute;
+        width: 0;
+        top: 10vh;
+        right: 0;
+        bottom: 90px;
+    }
+    
+    #keyboards > div
+    {
+        grid-template-columns: repeat(3, 1fr);
+        width: 25vw;
+        margin: 0 15vw 0 0;
+    }
+    
+    #keyboards.keyboardShown
+    {
+        width: 40vw!important;
+    }
+
+    #results
+    {
+        padding-top: 5vh;
+    }
+    
+    #history > button,
+    #help > div
+    {
+        width: 60vw;
+        margin: 1vh 20vw;
+    }
+}
